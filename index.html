@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông tin liên hệ</title>
+    <style>
+      :root {
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        --bg: #f3f6f4;
+        --card: #ffffff;
+        --text: #14201b;
+        --muted: #5d6b64;
+        --line: #dbe3de;
+        --accent: #0f6b4f;
+        --accent-text: #ffffff;
+        --tk: #111111;
+        --fb: #1877f2;
+        --yt: #e62117;
+        --ig: #c13584;
+        --tcb: #e30613;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0f1512;
+          --card: #18211d;
+          --text: #eaf1ed;
+          --muted: #97a79f;
+          --line: #2a3730;
+          --accent: #4cc9a0;
+          --accent-text: #0b1511;
+          --tk: #eaf1ed;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0f1512;
+        --card: #18211d;
+        --text: #eaf1ed;
+        --muted: #97a79f;
+        --line: #2a3730;
+        --accent: #4cc9a0;
+        --accent-text: #0b1511;
+        --tk: #eaf1ed;
+        color-scheme: dark;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          "Be Vietnam Pro",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        line-height: 1.5;
+      }
+      main {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 40px 20px 48px;
+      }
+      .head {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      .avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: var(--accent-text);
+        display: grid;
+        place-items: center;
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 auto 16px;
+      }
+      h1 {
+        font-size: 26px;
+        line-height: 1.2;
+        margin: 0 0 4px;
+        font-weight: 700;
+      }
+      .head p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        color: inherit;
+        text-decoration: none;
+        min-height: 64px;
+      }
+      .item:hover {
+        border-color: var(--accent);
+      }
+      .item:focus-visible,
+      .copy:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .ico {
+        flex: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+      }
+      .ico svg {
+        width: 22px;
+        height: 22px;
+        fill: currentColor;
+      }
+      .txt {
+        min-width: 0;
+        flex: 1;
+      }
+      .txt b {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .txt span {
+        display: block;
+        font-size: 14px;
+        color: var(--muted);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .go {
+        color: var(--muted);
+        flex: none;
+      }
+      .bank {
+        margin-top: 22px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+      }
+      .bank h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        margin: 0 0 12px;
+      }
+      .bank dl {
+        margin: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 6px 14px;
+        font-size: 15px;
+      }
+      .bank dt {
+        color: var(--muted);
+      }
+      .bank dd {
+        margin: 0;
+        font-weight: 600;
+        text-align: right;
+      }
+      .num {
+        font-size: 22px;
+        letter-spacing: 0.04em;
+        font-variant-numeric: tabular-nums;
+      }
+      .copy {
+        margin-top: 14px;
+        width: 100%;
+        padding: 12px;
+        border: 0;
+        border-radius: 10px;
+        background: var(--accent);
+        color: var(--accent-text);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+        transform: translateX(-50%);
+        background: var(--text);
+        color: var(--bg);
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 14px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+      .toast.show {
+        opacity: 1;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .toast {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="head">
+        <div class="avatar" id="avatar">T</div>
+        <h1 id="name">Nguyễn Anh Tài</h1>
+        <p id="bio">Liên hệ với tôi qua các kênh bên dưới</p>
+      </header>
+
+      <nav class="list" id="list" aria-label="Kênh liên hệ"></nav>
+
+      <section class="bank" aria-labelledby="bank-title">
+        <h2 id="bank-title">
+          <span class="ico" style="background: var(--tcb)"
+            ><svg viewBox="0 0 24 24">
+              <path
+                d="M12 2 2 7v2h20V7L12 2Zm-8 9v7H2v2h20v-2h-2v-7h-2v7h-3v-7h-2v7h-2v-7H9v7H6v-7H4Z"
+              /></svg></span
+          >Chuyển khoản Techcombank
+        </h2>
+        <dl>
+          <dt>Chủ tài khoản</dt>
+          <dd id="b-owner"></dd>
+          <dt>Ngân hàng</dt>
+          <dd>Techcombank</dd>
+          <dt>Số tài khoản</dt>
+          <dd class="num" id="b-num"></dd>
+        </dl>
+        <button class="copy" id="copyBtn" type="button">
+          Sao chép số tài khoản
+        </button>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      /* ===== SỬA THÔNG TIN CỦA BẠN Ở ĐÂY ===== */
+      var INFO = {
+        name: "Nguyễn Anh Tài",
+        bio: "Liên hệ với tôi qua các kênh bên dưới",
+        phone: "0387356596", // số điện thoại
+        tiktok: "natsnake", // tên tài khoản, không có @
+        facebook: "taivipro2k", // tên người dùng hoặc ID Facebook
+        youtube: "nguyenanhtaitv", // tên kênh, không có @
+        instagram: "atai_snake",
+        bankOwner: "NGUYEN ANH TAI",
+        bankNumber: "28386234234",
+      };
+      /* ======================================== */
+
+      var I = {
+        phone:
+          '<svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.300.2 2.500.6 3.600.1.300 0 .700-.2 1l-2.300 2.200Z"/></svg>',
+        tiktok:
+          '<svg viewBox="0 0 24 24"><path d="M16.6 2h-3.2v13.200a2.800 2.800 0 1 1-2-2.700V9.200a6 6 0 1 0 5.200 5.900V8.500a7.500 7.500 0 0 0 4.400 1.400V6.700A4.400 4.400 0 0 1 16.600 2Z"/></svg>',
+        facebook:
+          '<svg viewBox="0 0 24 24"><path d="M13.500 22v-8.200h2.800l.4-3.300h-3.200V8.400c0-.9.300-1.600 1.600-1.600h1.700V3.900c-.3 0-1.300-.1-2.500-.1-2.500 0-4.200 1.500-4.200 4.300v2.400H7.300v3.300h2.800V22h3.400Z"/></svg>',
+        youtube:
+          '<svg viewBox="0 0 24 24"><path d="M21.600 7.200a2.500 2.500 0 0 0-1.800-1.800C18.200 5 12 5 12 5s-6.200 0-7.800.4A2.500 2.500 0 0 0 2.400 7.200C2 8.800 2 12 2 12s0 3.200.4 4.800a2.500 2.500 0 0 0 1.800 1.800C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.500 2.500 0 0 0 1.800-1.800c.4-1.600.4-4.800.4-4.800s0-3.200-.4-4.800ZM10 15V9l5.200 3L10 15Z"/></svg>',
+        instagram:
+          '<svg viewBox="0 0 24 24"><path d="M7.500 2h9A5.500 5.500 0 0 1 22 7.500v9a5.500 5.500 0 0 1-5.500 5.500h-9A5.500 5.500 0 0 1 2 16.500v-9A5.500 5.500 0 0 1 7.500 2Zm0 2A3.500 3.500 0 0 0 4 7.500v9A3.500 3.500 0 0 0 7.500 20h9a3.500 3.500 0 0 0 3.500-3.500v-9A3.500 3.500 0 0 0 16.500 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.300-3.200a1.200 1.200 0 1 1 0 2.400 1.200 1.200 0 0 1 0-2.400Z"/></svg>',
+      };
+      var ROWS = [
+        {
+          k: "phone",
+          t: "Gọi điện",
+          s: INFO.phone,
+          href: "tel:" + INFO.phone,
+          c: "var(--accent)",
+        },
+        {
+          k: "tiktok",
+          t: "TikTok",
+          s: "@" + INFO.tiktok,
+          href: "https://www.tiktok.com/@" + INFO.tiktok,
+          c: "var(--tk)",
+        },
+        {
+          k: "facebook",
+          t: "Facebook",
+          s: INFO.facebook,
+          href: "https://www.facebook.com/" + INFO.facebook,
+          c: "var(--fb)",
+        },
+        {
+          k: "youtube",
+          t: "YouTube",
+          s: "@" + INFO.youtube,
+          href: "https://www.youtube.com/@" + INFO.youtube,
+          c: "var(--yt)",
+        },
+        {
+          k: "instagram",
+          t: "Instagram",
+          s: "@" + INFO.instagram,
+          href: "https://www.instagram.com/" + INFO.instagram,
+          c: "var(--ig)",
+        },
+      ];
+      var list = document.getElementById("list");
+      ROWS.forEach(function (r) {
+        var a = document.createElement("a");
+        a.className = "item";
+        a.href = r.href;
+        if (r.k !== "phone") {
+          a.target = "_blank";
+          a.rel = "noopener";
+        }
+        var tc = r.k === "tiktok" ? "color:var(--bg)" : "";
+        a.innerHTML =
+          '<span class="ico" style="background:' +
+          r.c +
+          ";" +
+          tc +
+          '">' +
+          I[r.k] +
+          "</span>" +
+          '<span class="txt"><b>' +
+          r.t +
+          '</b><span></span></span><span class="go" aria-hidden="true">›</span>';
+        a.querySelector(".txt span").textContent = r.s;
+        list.appendChild(a);
+      });
+
+      document.title = INFO.name + " – Liên hệ";
+      document.getElementById("name").textContent = INFO.name;
+      document.getElementById("bio").textContent = INFO.bio;
+      document.getElementById("avatar").textContent = INFO.name
+        .trim()
+        .split(/\s+/)
+        .pop()
+        .charAt(0)
+        .toUpperCase();
+      document.getElementById("b-owner").textContent = INFO.bankOwner;
+      document.getElementById("b-num").textContent = INFO.bankNumber;
+
+      var toast = document.getElementById("toast"),
+        tt;
+      function show(m) {
+        toast.textContent = m;
+        toast.classList.add("show");
+        clearTimeout(tt);
+        tt = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 2000);
+      }
+      document.getElementById("copyBtn").addEventListener("click", function () {
+        var n = INFO.bankNumber;
+        function fallback() {
+          var t = document.createElement("textarea");
+          t.value = n;
+          document.body.appendChild(t);
+          t.select();
+          try {
+            document.execCommand("copy");
+            show("Đã sao chép số tài khoản");
+          } catch (e) {
+            show("Không sao chép được, hãy chép thủ công");
+          }
+          document.body.removeChild(t);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(n).then(function () {
+            show("Đã sao chép số tài khoản");
+          }, fallback);
+        } else fallback();
+      });
+    </script>
+  </body>
+</html>
